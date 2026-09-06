@@ -4,7 +4,7 @@
 
 Ayush SkillBridge is a judge-friendly prototype of a tripartite digital ecosystem connecting **AYUSH Students, Educational Institutions, and Industry**.
 
-## What this prototype demonstrates
+# What this prototype demonstrates
 
 1. **Smart Internship Tracker**
    - Geo-fenced attendance concept
