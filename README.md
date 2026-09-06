@@ -50,8 +50,6 @@ npm install
 npm run dev
 ```
 
-Open the local Vite address shown in the terminal.
-
 ## Build
 
 ```bash
@@ -59,34 +57,40 @@ npm run build
 npm run preview
 ```
 
-## Repository structure
+## AI integration
+
+SkillBridge AI is exposed through a Vercel serverless function at `/api/ai`. The browser never receives the OpenAI API key; the function reads `OPENAI_API_KEY` from the server environment and calls the OpenAI Responses API.
+
+Required environment variables:
 
 ```text
-ayush-skillbridge/
-├── public/
-│   └── logo.svg
-├── src/
-│   ├── main.jsx
-│   └── styles.css
-├── index.html
-├── package.json
-└── README.md
+OPENAI_API_KEY=your_key
+OPENAI_MODEL=gpt-5
 ```
 
-## Important prototype boundary
+Never commit the API key to GitHub.
 
-This is a **demonstration prototype**, not a production government system. It uses demo data and simulated verification flows.
+## Vercel deployment
 
-Production architecture can add:
-- Flutter mobile app
-- FastAPI / Node.js API
-- PostgreSQL + JSONB
-- Real GPS/geofence and device attestation
-- Offline-first synchronization
-- RBAC and audit logging
-- Encryption and government-cloud deployment
-- Secure anonymized clinical records
-- NLP/embedding-assisted skill extraction and matching
+This project is configured for Vercel with a build command that invokes Vite through Node directly. This avoids executable-permission issues with `node_modules/.bin/vite` on the build worker.
+
+Recommended Vercel settings:
+
+- Framework Preset: **Vite**
+- Build Command: **`npm run build`**
+- Output Directory: **`dist`**
+- Node.js: **20+**
+
+In Vercel → Project → Settings → Environment Variables, add:
+
+- `OPENAI_API_KEY`
+- `OPENAI_MODEL` = `gpt-5`
+
+After changing environment variables, redeploy.
+
+## Prototype boundary
+
+This is a **demonstration prototype**, not a production government system. It uses demo data and simulated verification flows. Production can add a real backend, PostgreSQL, Flutter mobile, real GPS/device attestation, offline synchronization, RBAC, audit logging, encryption, and government-cloud deployment.
 
 ### Demo safety
 
@@ -97,36 +101,6 @@ Never enter real patient-identifying information into the prototype. Clinical ex
 **Student checks in → practical activity is logged → supervisor approves → verified hours update Skill Passport → AI matches the student to a relevant industry opening → recruiter reviews an explainable match.**
 
 > We are not trying to build the entire national AYUSH ecosystem in the hackathon. We are proving the core digital pipeline that makes it possible: **Verified Internship → Verified Skills → AI-Assisted Matching → Employment.**
-
-
-## AI integration
-
-SkillBridge AI is exposed through a Vercel serverless function at `/api/ai`. The browser never receives the OpenAI API key; the function reads `OPENAI_API_KEY` from the server environment and calls the OpenAI Responses API.
-
-Required environment variables:
-```text
-OPENAI_API_KEY=your_key
-OPENAI_MODEL=gpt-5
-```
-
-Never commit the API key to GitHub.
-
-## Vercel deployment
-
-1. Push this project to GitHub and import it into Vercel.
-2. Framework: Vite. Build command: `npm run build`. Output: `dist`.
-3. Vercel → Project → Settings → Environment Variables: add `OPENAI_API_KEY` and `OPENAI_MODEL`.
-4. Redeploy after adding/changing environment variables.
-
-CLI option:
-```bash
-npm install
-npm run build
-npx vercel
-npx vercel --prod
-```
-
-For local testing of the `/api` function, use `npx vercel dev`.
 
 ## AI safety
 
