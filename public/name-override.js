@@ -1,6 +1,6 @@
 (() => {
   const FROM = /\bAnanya(?:\s+Menon)?\b/g;
-  const TO = "Madhu Mitra";
+  const TO = "Madhumithra K";
 
   const replaceText = (node) => {
     if (node.nodeType === Node.TEXT_NODE) {
